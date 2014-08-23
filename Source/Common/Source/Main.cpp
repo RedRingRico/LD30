@@ -1,5 +1,6 @@
 #include <iostream>
 #include <GitVersion.hpp>
+#include <Game.hpp>
 
 int main( int p_Argc, char **p_ppArgv )
 {
@@ -11,7 +12,13 @@ int main( int p_Argc, char **p_ppArgv )
 	std::cout << "\tBranch: " << GIT_BRANCH << std::endl;
 	std::cout << "\tTag:    " << GIT_TAG_NAME << std::endl;
 
+	LD::Game TheGame;
 
-	return 0;
+	if( TheGame.Initialise( ) != LD_OK )
+	{
+		return LD_FAIL;
+	}
+
+	return TheGame.Execute( );
 }
 
