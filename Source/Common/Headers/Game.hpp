@@ -15,6 +15,7 @@ namespace LD
 		LD_UINT32 Execute( );
 
 	private:
+		LD_BOOL	m_Running;
 	};
 }
 
