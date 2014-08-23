@@ -5,6 +5,8 @@
 
 namespace LD
 {
+	class Renderer;
+
 	class Game
 	{
 	public:
@@ -15,7 +17,8 @@ namespace LD
 		LD_UINT32 Execute( );
 
 	private:
-		LD_BOOL	m_Running;
+		LD_BOOL		m_Running;
+		Renderer	*m_pRenderer;
 	};
 }
 

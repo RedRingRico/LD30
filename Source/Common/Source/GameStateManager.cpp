@@ -1,5 +1,6 @@
 #include <GameStateManager.hpp>
 #include <GameState.hpp>
+#include <Renderer.hpp>
 #include <iostream>
 #include <cstring>
 
@@ -84,6 +85,7 @@ namespace LD
 			return LD_FAIL;
 		}
 
+		m_GameStateStack.top( )->Exit( );
 		m_GameStateStack.pop( );
 
 		return LD_OK;
@@ -96,8 +98,19 @@ namespace LD
 			return LD_FAIL;
 		}
 
+		m_pRenderer->HandleWindowEvents( );
+
+		if( m_pRenderer->IsRunning( ) == LD_FALSE )
+		{
+			this->Quit( );
+			return LD_OK;
+		}
+
 		m_GameStateStack.top( )->Update( 0ULL );
+
+		m_pRenderer->BeginScene( );
 		m_GameStateStack.top( )->Render( );
+		m_pRenderer->EndScene( );
 
 		if( m_GameStateStack.top( )->IsRunning( ) == LD_FALSE )
 		{
@@ -121,6 +134,16 @@ namespace LD
 	LD_BOOL GameStateManager::IsRunning( ) const
 	{
 		return m_Running;
+	}
+
+	LD_UINT32 GameStateManager::SetRenderer( Renderer *p_pRenderer )
+	{
+		m_pRenderer = p_pRenderer;
+	}
+
+	Renderer *GameStateManager::GetRenderer( )
+	{
+		return m_pRenderer;
 	}
 
 	GameStateManager &GameStateManager::GetInstance( )

@@ -8,6 +8,7 @@
 namespace LD
 {
 	class GameState;
+	class Renderer;
 
 	class GameStateManager
 	{
@@ -26,6 +27,9 @@ namespace LD
 
 		LD_BOOL IsRunning( ) const;
 
+		LD_UINT32 SetRenderer( Renderer *p_pRenderer );
+		Renderer *GetRenderer( );
+
 		static GameStateManager &GetInstance( );
 
 	private:
@@ -38,7 +42,8 @@ namespace LD
 		GameStateRegistry	m_GameStateRegistry;
 		GameStateStack		m_GameStateStack;
 
-		LD_BOOL	m_Running;
+		LD_BOOL		m_Running;
+		Renderer	*m_pRenderer;
 	};
 }
 

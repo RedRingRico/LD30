@@ -1,12 +1,15 @@
 #include <Game.hpp>
 #include <GameStateManager.hpp>
 #include <GameplayGameState.hpp>
+#include <Renderer.hpp>
 #include <Memory.hpp>
 #include <iostream>
 
 namespace LD
 {
-	Game::Game( )
+	Game::Game( ) :
+		m_Running( LD_FALSE ),
+		m_pRenderer( LD_NULL )
 	{
 	}
 
@@ -18,6 +21,21 @@ namespace LD
 	{
 		LD_BOOL Error = LD_FALSE;
 		std::cout << "Initialising" << std::endl;
+
+		m_pRenderer = new Renderer( );
+
+		RENDER_PARAMETERS RenderParameters;
+		RenderParameters.X = 100;
+		RenderParameters.Y = 100;
+		RenderParameters.Width = 1280;
+		RenderParameters.Height = 720;
+
+		if( m_pRenderer->Initialise( RenderParameters ) != LD_OK )
+		{
+			std::cout << "Fail" << std::endl;
+			return LD_FAIL;
+		}
+
 		if( Error )
 		{
 			std::cout << "Fail" << std::endl;
@@ -35,8 +53,8 @@ namespace LD
 
 		GameplayGameState *pGameplay = new GameplayGameState( );
 
+		GameStateManager::GetInstance( ).SetRenderer( m_pRenderer );
 		GameStateManager::GetInstance( ).RegisterState( pGameplay );
-
 		GameStateManager::GetInstance( ).PushState( "Gameplay" );
 
 		while( m_Running )

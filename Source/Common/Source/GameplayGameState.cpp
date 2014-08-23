@@ -1,5 +1,6 @@
 #include <GameplayGameState.hpp>
 #include <GameStateManager.hpp>
+#include <Renderer.hpp>
 #include <iostream>
 
 namespace LD
@@ -19,23 +20,20 @@ namespace LD
 		std::cout << "Entering gameplay" << std::endl;
 		m_Running = LD_TRUE;
 
+		GameStateManager::GetInstance( ).GetRenderer( )->SetClearColour( 1.0f,
+			0.0f, 0.0f );
+
 		return LD_OK;
 	}
 
 	LD_UINT32 GameplayGameState::Exit( )
 	{
+		std::cout << "Exiting gameplay" << std::endl;
 		return LD_OK;
 	}
 
 	void GameplayGameState::Update( const LD_UINT64 p_DeltaTime )
 	{
-		std::cout << "Tick: " << m_Tick << std::endl;
-		++m_Tick;
-
-		if( m_Tick > 10 )
-		{
-			m_Running = LD_FALSE;
-		}
 	}
 
 	void GameplayGameState::Render( )

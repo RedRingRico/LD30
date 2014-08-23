@@ -12,6 +12,8 @@ typedef int32_t			LD_SINT32;
 typedef uint32_t		LD_UINT32;
 typedef int64_t			LD_SINT64;
 typedef uint64_t		LD_UINT64;
+typedef float			LD_FLOAT32;
+typedef double			LD_FLOAT64;
 
 typedef size_t			LD_MEMSIZE;
 typedef LD_UCHAR8		LD_BYTE;
